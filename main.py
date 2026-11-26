@@ -25,11 +25,16 @@ def validate(text):
     return text
 
 
-def main():
-    entry = validate(ENTRY)
+def output_path():
+    """Build the entry file path from OUTPUT_DIR (default /output)."""
     out_dir = os.environ.get("OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
-    path = os.path.join(out_dir, "entry.txt")
+    return os.path.join(out_dir, "entry.txt")
+
+
+def main():
+    entry = validate(ENTRY)
+    path = output_path()
     with open(path, "w", encoding="utf-8") as f:
         f.write(entry)
     print("wrote %d chars to %s" % (len(entry), path))
